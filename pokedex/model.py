@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('\pokedex\pokedex.db')
+conn = sqlite3.connect('pokedex/pokedex.db')
 
 class Habitat:
 
