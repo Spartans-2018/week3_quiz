@@ -5,8 +5,8 @@ conn = sqlite3.connect(db)
 
 
 
-conn.execute("DROP TABLE pokemons")
-conn.execute("DROP TABLE habitats")
+conn.execute("DROP TABLE IF EXISTS pokemons")
+conn.execute("DROP TABLE IF EXISTS habitats")
 
 conn.commit()
 
