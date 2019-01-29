@@ -63,7 +63,7 @@ Create a Pokemon
 Enter the Pokemon's name or enter 'cancel' to cancel.
 
 Pokemon Name: Bulbasaur
-
+    
 Which habitat does the Pokemon live in?
 
 1. Cave
