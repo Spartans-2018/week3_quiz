@@ -37,9 +37,11 @@ class Controller:
 
     def create_pokemon(self):
         new_pokemon_name = self.views.create_pokemon()
-        habitat_list = Pokemon(new_pokemon_name, None).get_habitats()
-        habitat_id = self.views.select_habitat(habitat_list)
-        new_pokemon = Pokemon(new_pokemon_name, )
+        if new_pokemon_name != None:
+            #   STOPPED HERE 
+            habitat_list = Pokemon(new_pokemon_name, None).get_habitats()
+            habitat_id = self.views.select_habitat(habitat_list)
+            new_pokemon = Pokemon(new_pokemon_name, )
 
     def list_pokemon(self):
         self.views.list_pokemon(self.habitat)

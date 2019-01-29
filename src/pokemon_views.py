@@ -30,17 +30,17 @@ class Views:
                 break
         return habitat_name
 
-    def create_pokemon(self, habitats):
+    def create_pokemon(self):
         pokemon_name = ""
         print("Create a Pokemon\nEnter the Pokemon's name or enter 'cancel' to cancel.\n")
 
         while True:
             pokemon_name = input("Pokemon Name: ")
-            if pokemon_name != "":
+            if pokemon_name.strip() != None:
                 if pokemon_name.lower() == "cancel":
                     return
                 break
-        return pokemon_name
+        return pokemon_name.title()
 
     def select_habitat(self, habitats):
         # habitats = {}
