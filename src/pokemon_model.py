@@ -9,7 +9,7 @@ class Habitat:
 
     def save(self):
         sql = """INSERT INTO Habitats(HabitatName) VALUES(?)"""
-        db.conn.execute(sql, (self.habitat_name,))
+        db.insert_into(sql, [self.habitat_name])
 
 
 class Pokemon:
@@ -19,20 +19,21 @@ class Pokemon:
         self.habitat = habitat
 
     @staticmethod
-    def get_habitats(habitat_name):
+    def get_habitats(habitat_name=None):
         if habitat_name != None:
-            sql = """SELECT habitatid, HabitatName FROM Habitats WHERE habitatname in (?) ; """
-            rows = db.conn.execute(sql, (habitat_name,))
+            sql = """SELECT habitatname, habitatid FROM Habitats WHERE habitatname in {} ; """
+            sql = sql.format(habitat_name)
         else:
-            sql = """SELECT habitatid, HabitatName FROM Habitats ; """
-            rows = db.conn.execute(sql, (habitat_name,))
+            sql = """SELECT habitatname, habitatid FROM Habitats ; """
 
-        return [Habitat(row.habitat) for row in rows]
+        rows = db.execute_query(sql)
+
+        return [Habitat(row[0], row[1]) for row in rows]
 
     # @staticmethod
     def save(self):
         sql = """INSERT INTO Pokemons (pokemonname, habitatid) values ((?), (?)) ; """
-        db.conn.execute(sql, (self.pokemon_name), (self.habitat.habitat_id))
+        db.execute_query(sql, (self.pokemon_name), (self.habitat.habitat_id))
 
     @staticmethod
     def get_pokemons(habitat_name=None):
@@ -42,10 +43,10 @@ class Pokemon:
         # use the placeholder for semicolon
         wherecl = """  WHERE h.habitatname in ((?)) (?) """
         if habitat_name != None:
-            rows = db.conn.execute(
+            rows = db.execute_query(
                 selectst, wherecl, (""), (habitat_name), (";"))
         else:
-            rows = db.conn.execute(selectst, (";"))
+            rows = db.execute_query(selectst, (";"))
 
         # pokemons = []
         # for row in rows:

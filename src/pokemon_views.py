@@ -1,4 +1,5 @@
 import sys
+from utils import findHabitatById
 
 
 class Views:
@@ -34,29 +35,29 @@ class Views:
         pokemon_name = ""
         print("Create a Pokemon\nEnter the Pokemon's name or enter 'cancel' to cancel.\n")
 
-        while True:
+        while pokemon_name is not "cancel":
             pokemon_name = input("Pokemon Name: ")
             if pokemon_name.strip() != None:
-                if pokemon_name.lower() == "cancel":
-                    return
                 break
-        return pokemon_name.title()
+
+        return None if pokemon_name is "cancel" else pokemon_name.title()
 
     def select_habitat(self, habitats):
         # habitats = {}
         print("Which habitat does the Pokemon live in?\n")
 
-        for habitat_id, habitat_name in habitats.items():
-            print("{0}. {1}\n".format(habitat_id, habitat_name))
+        for habitat in habitats:
+            print("{0}. {1}\n".format(habitat.habitat_id, habitat.habitat_name))
 
+        habitat = None
         choice = ""
         while True:
             choice = input("\nYour choice :")
-            if choice in habitats.keys():
+            habitat = findHabitatById(habitats, int(choice))
+            if habitat is not None:
                 break
-        habitat_name = habitats[choice]
 
-        return int(choice), habitat_name
+        return habitat
 
     def quit(self):
         print("Exiting the system ...")
